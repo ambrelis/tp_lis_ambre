@@ -21,7 +21,7 @@ export interface Pollution {
   providedIn: 'root'
 })
 export class PollutionService {
-  private apiUrl =  `${environment.apiUrl}/api`;
+  private apiUrl =  `${environment.apiUrl}/api/pollution`;
 
   private pollutionsSubject = new BehaviorSubject<Pollution[]>([]);
   pollutions$ = this.pollutionsSubject.asObservable();
@@ -29,33 +29,33 @@ export class PollutionService {
   constructor(private http: HttpClient) {}
 
   loadPollutions(): void {
-    this.http.get<Pollution[]>(`${this.apiUrl}/pollution`)
+    this.http.get<Pollution[]>(`${this.apiUrl}`)
       .subscribe(data => this.pollutionsSubject.next(data));
   }
 
   // Ajouter une pollution
   addPollution(pollution: Pollution): Observable<Pollution> {
-    return this.http.post<Pollution>(`${this.apiUrl}/pollution`, pollution).pipe(tap(() => this.loadPollutions()));
+    return this.http.post<Pollution>(`${this.apiUrl}`, pollution).pipe(tap(() => this.loadPollutions()));
   }
 
   // Récupérer toutes les pollutions
   getPollutions(): Observable<Pollution[]> {
-  return this.http.get<Pollution[]>(`${this.apiUrl}/pollution`);
+  return this.http.get<Pollution[]>(`${this.apiUrl}`);
 }
 
 // Mettre à jour une pollution
   updatePollution(id: number, pollution: Pollution): Observable<Pollution> {
-    return this.http.put<Pollution>(`${this.apiUrl}/pollution/${id}`, pollution)
+    return this.http.put<Pollution>(`${this.apiUrl}/${id}`, pollution)
       .pipe(tap(() => this.loadPollutions()));
   }
 
   getPollutionById(id: number): Observable<Pollution> {
-    return this.http.get<Pollution>(`${this.apiUrl}/pollution/${id}`);
+    return this.http.get<Pollution>(`${this.apiUrl}/${id}`);
   }
 
   // Supprimer une pollution
   deletePollution(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/pollution/${id}`)
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
       .pipe(tap(() => this.loadPollutions()));
   }
 
