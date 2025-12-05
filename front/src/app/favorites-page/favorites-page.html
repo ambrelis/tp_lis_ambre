@@ -1,0 +1,15 @@
+<h2>Mes favoris</h2>
+
+<ul>
+  <li *ngFor="let p of favoritePollutions">
+    {{ p.titre }} - Type: {{ p.type_pollution }} - Date: {{ p.date_observation }}
+    
+    <button (click)="toggleFav(p.id!)">
+      {{ isFavorite(p.id!) ? 'Retirer des favoris' : 'Ajouter aux favoris' }}
+    </button>
+  </li>
+</ul>
+
+<p *ngIf="favoritePollutions.length === 0">
+  Vous n'avez aucun favori pour le moment.
+</p>

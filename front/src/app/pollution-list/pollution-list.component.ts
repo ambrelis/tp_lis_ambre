@@ -4,6 +4,7 @@ import { Pollution, PollutionService } from '../services/pollution.service';
 import { PollutionDetail } from "../pollution-detail/pollution-detail.component";
 import { PollutionEdit } from "../components/pollution-edit/pollution-edit.component";
 import { FormsModule } from '@angular/forms';
+import { Favorites } from '../services/favorites';
 
 @Component({
   selector: 'app-pollution-list',
@@ -26,7 +27,10 @@ export class PollutionListComponent implements OnInit {
   @Output() voirDetail = new EventEmitter<Pollution>();
   @Output() editPollutionEvent = new EventEmitter<Pollution>();
   
-  constructor(private pollutionService: PollutionService) {}
+  constructor(
+    private pollutionService: PollutionService,
+    private favService: Favorites
+  ) {}
 
   ngOnInit() {
     this.pollutionService.pollutions$.subscribe(data => {
@@ -72,7 +76,7 @@ export class PollutionListComponent implements OnInit {
 
   deletePollution(id?: number): void {
     if (!id) return;
-    this.pollutionService.deletePollution(id).subscribe({
+    this.pollutionService.deletePollution(id!).subscribe({
       next: () => {
         console.log('Pollution supprimée');
         if (this.pollutionToView?.id === id) this.pollutionToView = null;
@@ -81,4 +85,14 @@ export class PollutionListComponent implements OnInit {
       error: (err) => console.error('Erreur suppression :', err)
     });
   }
+
+  toggleFav(id: number) {
+    this.favService.toggleFavorite(id);
+  }
+
+  isFavorite(id: number): boolean {
+    return this.favService.isFavorite(id);
+  }
+
+  
 }
