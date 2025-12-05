@@ -1,11 +1,11 @@
 module.exports =  {
     ACCESS_TOKEN_SECRET : "EMMA123",
     BDD : {
-    "host" :"dpg-d41mvac9c44c73d001ag-a.oregon-postgres.render.com",
+    "host" :"dpg-d4m4it7pm1nc73cmqk6g-a.oregon-postgres.render.com",
     "port" : "5432",
-    "user" : "pollution_o50q_user",
-    "password" : "yqQJvxG6udcOC4XXXAVEBBjv8ywSOxC4",
-    "bdname" :"pollution_o50q" 
+    "user" : "pollution2_user",
+    "password" : "unoEPx4z0GvY1lz3fIcefeeWRHyQ1wpj",
+    "bdname" :"pollution2" 
     }
 }
 
