@@ -43,3 +43,12 @@ testem.log
 Thumbs.db
 client/.angular/cache/18.2.6/tp02/.tsbuildinfo
 client/.angular/cache/18.2.6/tp02/angular-compiler.db
+
+# Environment variables with secrets
+.env
+api/.env
+.env.local
+.env.*.local
+
+# Configuration files with secrets
+api/config.js
