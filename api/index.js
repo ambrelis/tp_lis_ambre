@@ -1,17 +1,19 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app  = express ();
 
 var corsOptions = {
-  origin: "*",
+  origin: "http://localhost:4200", // Frontend URL - important pour credentials
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  // headers: 'Content-Type, Authorization',
   allowedHeaders: 'Content-Type, Authorization',
-  exposedHeaders:'Authorization'
+  exposedHeaders: 'Authorization',
+  credentials: true // CRUCIAL pour envoyer/recevoir des cookies
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser()); // Parser les cookies
 
 // parse requests of content-type - application/json
 app.use(express.json());
