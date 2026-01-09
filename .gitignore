@@ -7,6 +7,10 @@ dist
 /bazel-out
 /client/.angular/cache
 
+front/.angular/
+front/node_modules/
+api/node_modules/
+
 # Node
 node_modules
 npm-debug.log
@@ -43,5 +47,3 @@ testem.log
 Thumbs.db
 client/.angular/cache/18.2.6/tp02/.tsbuildinfo
 client/.angular/cache/18.2.6/tp02/angular-compiler.db
-
-

@@ -5,15 +5,15 @@ const cookieParser = require("cookie-parser");
 const app  = express ();
 
 var corsOptions = {
-  origin: "http://localhost:4200", // Frontend URL - important pour credentials
+  origin: "http://localhost:4200",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type, Authorization',
-  exposedHeaders: 'Authorization',
-  credentials: true // CRUCIAL pour envoyer/recevoir des cookies
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Authorization']
 };
 
 app.use(cors(corsOptions));
-app.use(cookieParser()); // Parser les cookies
+app.use(cookieParser());
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -28,19 +28,18 @@ app.get("/", (req, res) => {
 
 const db = require("./models");
 
-db.sequelize.sync()
+db.sequelize.sync({ alter: true })
   .then(() => {
-    console.log("Synced db.");
+    console.log("✅ Base de données synchronisée (alter mode)");
   })
   .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
+    console.log("❌ Failed to sync db: " + err.message);
   });
 
 require("./routes")(app);
 
 // set port, listen for requests
-// const PORT =  3000;
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

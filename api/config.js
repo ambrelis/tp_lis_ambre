@@ -1,10 +1,20 @@
 module.exports =  {
-    ACCESS_TOKEN_SECRET : "EMMA123",
+    // Configuration JWT
+    JWT_SECRET: process.env.JWT_SECRET || "EMMA123_SECRET_KEY_SECURE",
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "24h",
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || "EMMA123_REFRESH_SECRET_KEY",
+    JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+    
+    // Pour compatibilité (ancienne variable)
+    ACCESS_TOKEN_SECRET: process.env.JWT_SECRET || "EMMA123_SECRET_KEY_SECURE",
+    
+    // Configuration Base de données
     BDD : {
-    "host" :"dpg-d41mvac9c44c73d001ag-a.oregon-postgres.render.com",
-    "port" : "5432",
-    "user" : "pollution_o50q_user",
-    "password" : "yqQJvxG6udcOC4XXXAVEBBjv8ywSOxC4",
-    "bdname" :"pollution_o50q" 
+        "host" :"dpg-d5ekvua4d50c73c5qilg-a.oregon-postgres.render.com",
+        "port" : "5432",
+        "user" : "pollution3_user",
+        "password" : "w84SolW6jMpawJzmpkNLAIIFH7gibqjp",
+        "bdname" :"pollution3" 
     }
 }
+

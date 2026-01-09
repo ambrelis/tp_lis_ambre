@@ -55,17 +55,19 @@ exports.login = async (req, res) => {
 
     // Envoyer les tokens dans des cookies HttpOnly sécurisés
     res.cookie('accessToken', token, {
-      httpOnly: true,  // JavaScript ne peut pas accéder
-      secure: process.env.NODE_ENV === 'production', // HTTPS uniquement en prod
-      sameSite: 'lax', // Protection CSRF
-      maxAge: 24 * 60 * 60 * 1000 // 24h en millisecondes
+      httpOnly: true,
+      secure: false, // false en développement pour http://localhost
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000,
+      path: '/'
     });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: false,
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7j en millisecondes
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/'
     });
 
     // Ajouter le token dans le header Authorization pour l'intercepteur Angular
@@ -97,6 +99,11 @@ exports.login = async (req, res) => {
 exports.register = async (req, res) => {
   try {
     const { nom, prenom, email, mot_de_passe, telephone, organisation, role, adresse } = req.body;
+
+    // Validations essentielles uniquement
+    if (!nom || !prenom || !email || !mot_de_passe) {
+      return res.status(400).json({ message: "Nom, prénom, email et mot de passe sont requis" });
+    }
 
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await Users.findOne({ where: { email } });
@@ -134,8 +141,12 @@ exports.register = async (req, res) => {
       { expiresIn: '24h' }
     );
 
+    // Ajouter le token dans le header Authorization pour l'intercepteur Angular
+    res.setHeader('Authorization', `Bearer ${token}`);
+
     res.status(201).json({
-      token,
+      success: true,
+      token: token,
       user: {
         id: newUser.id,
         nom: newUser.nom,

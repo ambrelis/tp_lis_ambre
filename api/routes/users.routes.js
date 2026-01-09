@@ -4,11 +4,11 @@ module.exports = app => {
   
     var router = require("express").Router();
 
-    // GET /api/users → Liste des utilisateurs (PUBLIC ou PROTÉGÉ selon besoins)
-    router.get("/", users.getAll);
+    //GET /api/users Liste des utilisateurs (protégée - admin uniquement)
+    router.get("/", authenticateToken, authorizeRoles('admin'), users.getAll);
     
-    // POST /api/users → Créer un utilisateur (PROTÉGÉ - admin uniquement)
-    router.post("/", authenticateToken, authorizeRoles('admin'), users.create);
+    //POST /api/users Créer un utilisateur (public pour inscription)
+    router.post("/", users.create);
 
     app.use('/api/users/', router);
 };
