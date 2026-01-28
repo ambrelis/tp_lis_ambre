@@ -23,6 +23,8 @@ var corsOptions = {
       callback(null, true);
     } else {
       callback(null, false); // Refus CORS standard, pas d'erreur 500
+      
+      credentials:true;
     }
   },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -57,7 +59,6 @@ db.sequelize.sync({ alter: true })
     // ...log supprimé...
   });
 
-require("./routes")(app);
 require("./routes")(app);
 
 // Gestionnaire d'erreur global Express (à placer après les routes)
