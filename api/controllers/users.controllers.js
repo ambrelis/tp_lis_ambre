@@ -18,7 +18,6 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    console.log("BODY RECEIVED:", req.body);
     const { nom, prenom, email, mot_de_passe, telephone, organisation, role, adresse } = req.body;
 
     const newUser = await Users.create({

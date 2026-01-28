@@ -16,16 +16,16 @@ const allowedOrigins = [
 
 var corsOptions = {
   origin: function (origin, callback) {
-    console.log('🌍 Origin de la requête:', origin);
+    // ...log supprimé...
     // Autoriser les requêtes sans origin (ex: Postman, curl)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.indexOf(origin) !== -1) {
-      console.log('✅ Origin autorisée:', origin);
+      // ...log supprimé...
       callback(null, true);
     } else {
-      console.error('❌ Origin BLOQUÉE:', origin);
-      console.log('📋 Origins autorisées:', allowedOrigins);
+      // ...log supprimé...
+      // ...log supprimé...
       callback(new Error('Non autorisé par CORS'));
     }
   },
@@ -35,8 +35,7 @@ var corsOptions = {
   exposedHeaders: ['Authorization']
 };
 
-console.log('🔧 Environment:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
-console.log('📋 CORS - Origins autorisées:', allowedOrigins);
+// ...logs supprimés...
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -56,18 +55,29 @@ const db = require("./models");
 
 db.sequelize.sync({ alter: true })
   .then(() => {
-    console.log("✅ Base de données synchronisée (alter mode)");
+    // ...log supprimé...
   })
   .catch((err) => {
-    console.log("❌ Failed to sync db: " + err.message);
+    // ...log supprimé...
   });
 
 require("./routes")(app);
+require("./routes")(app);
+
+// Gestionnaire d'erreur global Express (à placer après les routes)
+app.use((err, req, res, next) => {
+  console.error('--- ERREUR EXPRESS GLOBALE ---');
+  console.error(err);
+  if (err instanceof Error && err.message) {
+    res.status(500).json({ message: err.message, error: err });
+  } else {
+    res.status(500).json({ message: 'Erreur serveur inconnue', error: err });
+  }
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}.`);
-  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+  // ...logs supprimés...
 });
 

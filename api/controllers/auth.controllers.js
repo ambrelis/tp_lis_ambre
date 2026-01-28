@@ -93,7 +93,6 @@ exports.login = async (req, res) => {
     });
 
   } catch (err) {
-    console.error('Erreur lors de la connexion:', err);
     res.status(500).json({ message: "Erreur serveur lors de la connexion" });
   }
 };

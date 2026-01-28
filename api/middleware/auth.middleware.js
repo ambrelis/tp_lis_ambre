@@ -9,8 +9,7 @@ const SECRET_KEY = config.JWT_SECRET;
  */
 const authenticateToken = (req, res, next) => {
   try {
-    console.log('🔐 Auth middleware - Headers:', req.headers['authorization']);
-    console.log('🔐 Auth middleware - Cookies:', req.cookies);
+    // ...logs supprimés...
     
     // 1. Récupérer le token depuis le header Authorization (prioritaire) ou le cookie (fallback)
     let token = null;
@@ -19,16 +18,16 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     if (authHeader && authHeader.startsWith('Bearer ')) {
       token = authHeader.split(' ')[1];
-      console.log('🔐 Token trouvé dans le header Authorization');
+      // ...log supprimé...
     }
     
     // Fallback: si pas de header, vérifier le cookie
     if (!token && req.cookies?.accessToken) {
       token = req.cookies.accessToken;
-      console.log('🔐 Token trouvé dans le cookie');
+      // ...log supprimé...
     }
     
-    console.log('🔐 Token found:', token ? 'YES' : 'NO');
+    // ...log supprimé...
     
     if (!token) {
       return res.status(401).json({ 
@@ -60,7 +59,7 @@ const authenticateToken = (req, res, next) => {
     });
 
   } catch (error) {
-    console.error('Erreur dans le middleware d\'authentification:', error);
+    // ...log supprimé...
     res.status(500).json({ 
       message: 'Erreur serveur lors de l\'authentification' 
     });

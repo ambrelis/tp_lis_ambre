@@ -15,6 +15,13 @@ module.exports =  {
         "user" : "pollution3_user",
         "password" : "w84SolW6jMpawJzmpkNLAIIFH7gibqjp",
         "bdname" :"pollution3" 
+    },
+    
+    // Configuration Cloudinary (à configurer dans les variables d'environnement)
+    CLOUDINARY: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
     }
 }
 

@@ -6,7 +6,7 @@ const Pollution = db.pollution;
 exports.getUserFavorites = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log('🔍 GET /api/favorites - User ID:', userId);
+    // ...log supprimé...
 
     const favorites = await Favorite.findAll({
       where: { user_id: userId },
@@ -17,11 +17,11 @@ exports.getUserFavorites = async (req, res) => {
       order: [['added_at', 'DESC']]
     });
 
-    console.log('✅ Favoris trouvés:', favorites.length);
-    console.log('📋 Détails:', JSON.stringify(favorites, null, 2));
+    // ...log supprimé...
+    // ...log supprimé...
     res.status(200).json(favorites);
   } catch (err) {
-    console.error('Erreur récupération favoris:', err);
+    // ...log supprimé...
     res.status(500).json({ message: err.message });
   }
 };
@@ -31,7 +31,7 @@ exports.addFavorite = async (req, res) => {
   try {
     const userId = req.user.id;
     const { pollution_id } = req.body;
-    console.log('🔍 POST /api/favorites - User ID:', userId, 'Pollution ID:', pollution_id);
+    // ...log supprimé...
 
     if (!pollution_id) {
       return res.status(400).json({ message: "pollution_id requis" });
@@ -46,7 +46,7 @@ exports.addFavorite = async (req, res) => {
     });
 
     if (existing) {
-      console.log('⚠️  Déjà en favori');
+      // ...log supprimé...
       return res.status(409).json({ message: "Déjà dans les favoris" });
     }
 
@@ -57,10 +57,10 @@ exports.addFavorite = async (req, res) => {
       added_at: new Date()
     });
 
-    console.log('✅ Favori créé avec succès:', favorite.toJSON());
+    // ...log supprimé...
     res.status(201).json(favorite);
   } catch (err) {
-    console.error('Erreur ajout favori:', err);
+    // ...log supprimé...
     res.status(500).json({ message: err.message });
   }
 };
@@ -84,7 +84,7 @@ exports.removeFavorite = async (req, res) => {
 
     res.status(200).json({ message: "Favori supprimé" });
   } catch (err) {
-    console.error('Erreur suppression favori:', err);
+    // ...log supprimé...
     res.status(500).json({ message: err.message });
   }
 };
@@ -100,7 +100,7 @@ exports.clearFavorites = async (req, res) => {
 
     res.status(200).json({ message: "Tous les favoris ont été supprimés" });
   } catch (err) {
-    console.error('Erreur suppression favoris:', err);
+    // ...log supprimé...
     res.status(500).json({ message: err.message });
   }
 };

@@ -24,7 +24,6 @@ exports.logout = async (req, res) => {
     });
 
   } catch (err) {
-    console.error('Erreur lors de la déconnexion:', err);
     res.status(500).json({ message: "Erreur serveur lors de la déconnexion" });
   }
 };

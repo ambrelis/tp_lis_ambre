@@ -1,6 +1,7 @@
 module.exports = app => {
     const pollution = require("../controllers/pollution.controllers.js"); // Controller
     const { authenticateToken } = require("../middleware/auth.middleware"); // Middleware JWT
+    const { upload } = require("../middleware/upload.middleware"); // Middleware Multer/Cloudinary
 
     const router = require("express").Router();
 
@@ -9,9 +10,10 @@ module.exports = app => {
 
     // GET /api/pollution/:id → détails d’une pollution
     router.get("/:id", pollution.getById);
-
-    // POST /api/pollution → ajouter une nouvelle pollution (protégée)
-    router.post("/", authenticateToken, pollution.create);
+    // POST /api/pollution/upload → uploader une photo (protégée)
+    router.post("/upload", authenticateToken, upload.single('photo'), pollution.uploadPhoto);
+    // POST /api/pollution → ajouter une nouvelle pollution (protégée, avec upload photo possible)
+    router.post("/", authenticateToken, upload.single('photo'), pollution.create);
 
     // PUT /api/pollution/:id → modifier une pollution (protégée)
     router.put("/:id", authenticateToken, pollution.update);
